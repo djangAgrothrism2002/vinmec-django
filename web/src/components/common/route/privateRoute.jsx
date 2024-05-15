@@ -4,7 +4,7 @@ import StorageUtil from "../../../service/helper/storage";
 
 export default function PrivateRoute() {
   const isAuthenticated = StorageUtil.getToken();
-  return isAuthenticated ? <Outlet /> : <Navigate to="/" />;
+  return isAuthenticated ? <Outlet /> : <Navigate to="/login" />;
 }
 
 PrivateRoute.displayName = "PrivateRoute";

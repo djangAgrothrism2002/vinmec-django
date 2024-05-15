@@ -25,5 +25,5 @@ router.register('account', AccountView, basename='account')
 
 urlpatterns = [
     path("auth/", include(authpatterns)),
-    path("account/", AccountView.as_view()),
+    # path("account/", AccountView.as_view()),
 ]

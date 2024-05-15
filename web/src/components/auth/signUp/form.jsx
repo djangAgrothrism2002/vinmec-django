@@ -13,35 +13,104 @@ import Typography from "@mui/material/Typography";
 import Container from "@mui/material/Container";
 import { createTheme, ThemeProvider } from "@mui/material/styles";
 
-function Copyright(props) {
-  return (
-    <Typography
-      variant="body2"
-      color="text.secondary"
-      align="center"
-      {...props}
-    >
-      {"Copyright © "}
-      <Link color="inherit" href="https://mui.com/">
-        Your Website
-      </Link>{" "}
-      {new Date().getFullYear()}
-      {"."}
-    </Typography>
-  );
-}
+
 
 // TODO remove, this demo shouldn't need to reset the theme.
 const defaultTheme = createTheme();
 
-export const SignUpForm = () => {
+export const SignUpForm = ({handleLogin}) => {
+
+   const [checkEmail, setCheckEmail] = React.useState({
+    error: false,
+    content: "",
+  });
+
+  const [checkPassword, setCheckPassword] = React.useState({
+    error: false,
+    content: "",
+  });
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
-    console.log({
+    const formData = {
+      first_name: data.get("firstName"),
+      last_name: data.get("lastName"),
       email: data.get("email"),
       password: data.get("password"),
-    });
+      re_password: data.get("re-password"),
+      phone_number: data.get("phone"),
+    }
+    if (formData.email === "" && formData.password === "") {
+      setCheckEmail({
+        error: true,
+        content: "Email is not valid !",
+      });
+      setCheckPassword({
+        error: true,
+        content: "Password must be length > or = 8 characters !",
+      });
+    } else {
+      handleLogin(formData);
+    }
+  }
+
+
+  const eventListenEmailInput = (event) => {
+    if (EMAIL_REGX.test(event.target.value) === false) {
+      setCheckEmail({
+        error: true,
+        content: "Email is not valid !",
+      });
+    } else if (EMAIL_REGX.test(event.target.value) === true) {
+      setCheckEmail({
+        error: false,
+        content: "",
+      });
+    }
+  };
+
+  const eventListenPasswordInput = (event) => {
+    if (PASSWORD_REGX.test(event.target.value) === false) {
+      setCheckPassword({
+        error: true,
+        content: "Password must be length > or = 8 characters !",
+      });
+    } else if (PASSWORD_REGX.test(event.target.value) === true) {
+      setCheckPassword({
+        error: false,
+        content: "",
+      });
+    }
+  };
+
+
+  const eventListenPhoneNumberInput = (event) => {
+    if (PASSWORD_REGX.test(event.target.value) === false) {
+      setCheckPassword({
+        error: true,
+        content: "Password must be length > or = 8 characters !",
+      });
+    } else if (PASSWORD_REGX.test(event.target.value) === true) {
+      setCheckPassword({
+        error: false,
+        content: "",
+      });
+    }
+  };
+
+    const eventListenNameInput = (event) => {
+    if (PASSWORD_REGX.test(event.target.value) === false) {
+      setCheckPassword({
+        error: true,
+        content: "Password must be length > or = 8 characters !",
+      });
+    } else if (PASSWORD_REGX.test(event.target.value) === true) {
+      setCheckPassword({
+        error: false,
+        content: "",
+      });
+    }
   };
 
   return (
@@ -132,14 +201,7 @@ export const SignUpForm = () => {
                   autoComplete="new-password"
                 />
               </Grid>
-              <Grid item xs={12}>
-                <FormControlLabel
-                  control={
-                    <Checkbox value="allowExtraEmails" color="primary" />
-                  }
-                  label="I want to receive inspiration, marketing promotions and updates via email."
-                />
-              </Grid>
+      
             </Grid>
             <Button
               type="submit"
@@ -151,14 +213,14 @@ export const SignUpForm = () => {
             </Button>
             <Grid container justifyContent="flex-end">
               <Grid item>
-                <Link href="#" variant="body2">
+                <Link href="/login" variant="body2">
                   Already have an account? Sign in
                 </Link>
               </Grid>
             </Grid>
           </Box>
         </Box>
-        <Copyright sx={{ mt: 5 }} />
+
       </Container>
     </ThemeProvider>
   );

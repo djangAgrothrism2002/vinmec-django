@@ -9,6 +9,8 @@ import PrivateRoute from "./components/common/route/privateRoute.jsx";
 import Medicine from "./components/page/medicine/index.jsx";
 import DashBoard from "./components/page/dashBoard/index.jsx";
 import { pageCms } from "./components/page/page.jsx";
+import { Otp } from "./components/auth/otp/index.jsx";
+import { ForgotPassword } from "./components/auth/forgotPassword/index.jsx";
 
 const router = createBrowserRouter([
   {
@@ -30,6 +32,19 @@ const router = createBrowserRouter([
           {
             path: "",
             element: <SignUp />,
+          },
+          {
+            path: "verify-email",
+            element: <Otp />,
+          },
+        ],
+      },
+      {
+        path: "forgot-password",
+        children: [
+          {
+            path: "",
+            element: <ForgotPassword />,
           },
         ],
       },

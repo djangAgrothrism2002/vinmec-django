@@ -54,29 +54,28 @@ services:
         build:
             context: ../web
             dockerfile: ../docker/dockerfiles/web
-        # command: yarn run dev --host --port 5173
         ports:
-            - ":5173"
+            - "5173:5173"
         volumes:
             - ../web:/code
             - /code/node_modules;
         tty: true # allow run via exec commands
 
 
-    vinmec_nginx:
-        container_name: vinmec_nginx
-        build:
-            context: ./
-            dockerfile: ./dockerfiles/nginx
-        restart: always
-        volumes:
-            - ./config/nginx.conf:/etc/nginx/nginx.conf
-            - ./ssl:/etc/nginx/ssl
-        ports:
-            - "443:443"
-            - "80:80"
-        depends_on:
-            - vinmec_api
+    # vinmec_nginx:
+    #     container_name: vinmec_nginx
+    #     build:
+    #         context: ./
+    #         dockerfile: ./dockerfiles/nginx
+    #     restart: always
+    #     volumes:
+    #         - ./config/nginx.conf:/etc/nginx/nginx.conf
+    #         - ./ssl:/etc/nginx/ssl
+    #     ports:
+    #         - "443:443"
+    #         - "80:80"
+    #     depends_on:
+    #         - vinmec_api
 
     vinmec_redis:
         image: redis

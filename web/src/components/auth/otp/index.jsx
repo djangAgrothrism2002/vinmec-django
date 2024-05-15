@@ -1,12 +1,12 @@
 import React from "react";
 import StorageUtil from "../../../service/helper/storage";
 import { useLocation, Navigate, useNavigate } from "react-router-dom";
-import { SignUpForm } from "./form";
+import { OtpForm } from "./form";
 import RequestUtil from "../../../service/helper/requestUtil";
 import { urlMap } from "../../../service/urls";
 import { useSnackbar } from "notistack";
 
-export const SignUp = () => {
+export const Otp = () => {
   const location = useLocation();
   const navigate = useNavigate();
   
@@ -17,17 +17,17 @@ export const SignUp = () => {
   }
   const { prefix, endpoints } = urlMap.auth;
   const handleLogin = (data) => {
-    console.log(data)
-    RequestUtil.apiCallWithRefreshToken(prefix + endpoints.register, data, "POST")
+    RequestUtil.apiCallWithRefreshToken(prefix + endpoints.verifyEmail, data, "POST")
       .then((req) => {
-        navigate("/register/verify-email");
+        navigate("/login");
+        enqueueSnackbar("Register successfully !");
       })
       .catch((error) => enqueueSnackbar(error, "error"));
   };
 
   return (
     <>
-      <SignUpForm handleLogin={handleLogin} />
+      <OtpForm handleLogin={handleLogin} />
     </>
   );
 };
